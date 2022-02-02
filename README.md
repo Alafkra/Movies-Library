@@ -3,9 +3,8 @@
 **Author Name**: Zaid Ayasrah
 
 ## WRRC
-Add an image of your WRRC here
 
-will upload today
+![image](assets/WRRC.PNG)
 
 ## Overview
 
