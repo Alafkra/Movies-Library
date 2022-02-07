@@ -64,7 +64,7 @@ function trendingHandler(req,res){
 
 function searchHandler(req,res){
 
-    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.APIKEY}&query=${usersearch}}`)
+    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.APIKEY}&query="spider man"}`)
     .then(result=>{
        //console.log(result.data.recipes);
 
