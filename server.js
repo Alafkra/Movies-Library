@@ -16,6 +16,8 @@ server.use(cors());
 server.get('/',handleHomePage);
 server.get('/trending', trendingHandler);
 server.get('/search', searchHandler);
+server.get('/changes', changesHandler);
+server.get('/latest', latestHandler);
 server.use('*', notFoundHandler);
 server.use(errorHandler)
 
@@ -63,6 +65,7 @@ function trendingHandler(req,res){
 
 
 function searchHandler(req,res){
+    let movies = [];
 
     axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.APIKEY}&query="spider man"}`)
     .then(result=>{
@@ -79,6 +82,99 @@ function searchHandler(req,res){
     })
        
 }
+
+function changesHandler(req,res){
+    let movies=[];
+
+    axios.get(`https://api.themoviedb.org/3/movie/changes?api_key=${process.env.APIKEY}&&query="spider man"`)
+    .then(result=>{
+       //console.log(result.data.recipes);
+
+        result.data.results.map(movie => {
+            let newMovie = new Movie(movie.id, movie.title, movie.release_date, movie.poster_path, movie.overview);
+            movies.push(newMovie);
+        })
+        res.status(200).json(movies);
+
+    }).catch(err=>{
+        errorHandler(err,req,res);
+    })
+       
+}
+
+
+function latestHandler(req,res){
+    let movies=[];
+
+    axios.get(`https://api.themoviedb.org/3/person/latest?api_key=${process.env.APIKEY}&query="spider man"`)
+    .then(result=>{
+       //console.log(result.data.recipes);
+
+        result.data.results.map(movie => {
+            let newMovie = new Movie(movie.id, movie.title, movie.release_date, movie.poster_path, movie.overview);
+            movies.push(newMovie);
+        })
+        res.status(200).json(movies);
+
+    }).catch(err=>{
+        errorHandler(err,req,res);
+    })
+       
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function notFoundHandler(req,res){
